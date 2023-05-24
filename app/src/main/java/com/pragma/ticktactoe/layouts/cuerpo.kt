@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -35,10 +36,12 @@ fun cuerpo() {
                     val (boton1, boton2) = createRefs()
                     val colorsButtons = ButtonDefaults.buttonColors(
                         containerColor = WhiteButtons,
-                        contentColor = PurpleTextColor
+                        contentColor = PurpleTextColor,
                     )
 
-                    Button(onClick = { /*TODO*/ },
+                    Button(onClick = {
+
+                    },
                         modifier = Modifier
                         .constrainAs(boton1){
                         start.linkTo(parent.start)
@@ -51,7 +54,9 @@ fun cuerpo() {
                         Text(text = "Jugador 1 O")
                     }
 
-                    Button(onClick = { /*TODO*/ },
+                    Button(onClick = {
+
+                    },
                         colors = colorsButtons,
                         modifier = Modifier.constrainAs(boton2){
                         start.linkTo(boton1.end)
