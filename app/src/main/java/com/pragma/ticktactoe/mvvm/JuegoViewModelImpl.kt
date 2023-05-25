@@ -3,6 +3,7 @@ package com.pragma.ticktactoe.mvvm
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.pragma.ticktactoe.constantes.EstadoJuegoEnum
+import com.pragma.ticktactoe.constantes.JugadorCasillaEnum
 import com.pragma.ticktactoe.models.DetalleCasillaTriqui
 import com.pragma.ticktactoe.mvvm.helpers.actualizarTableroHelper.ActualizarTableroHelper
 import com.pragma.ticktactoe.mvvm.helpers.actualizarTableroHelper.ActualizarTableroHelperImpl
@@ -20,10 +21,19 @@ class JuegoViewModelImpl constructor(
 
     private val estadoActualTablero: MutableLiveData<MutableList<DetalleCasillaTriqui>> = MutableLiveData<MutableList<DetalleCasillaTriqui>>()
     private val turnoActual: MutableLiveData<EstadoJuegoEnum> = MutableLiveData<EstadoJuegoEnum>()
+    private val ganadorJuego: MutableLiveData<JugadorCasillaEnum> = MutableLiveData()
 
     override fun estadoActualTablero(): MutableLiveData<MutableList<DetalleCasillaTriqui>> = estadoActualTablero
 
-    override fun turnoActual(): MutableLiveData<EstadoJuegoEnum> = turnoActual
+    override fun ganadorDelJuego(): MutableLiveData<JugadorCasillaEnum> = ganadorJuego
+
+    override fun reiniciarJuego() {
+        viewModelScope.launch {
+            val estadoInicialTablero = configuracionTablero.generarEstadoInicalTablero().traerConfiguracionInicalTablero()
+            estadoActualTablero.postValue(estadoInicialTablero)
+            turnoActual.postValue(EstadoJuegoEnum.TURNO_JUGADOR1)
+        }
+    }
 
     override fun turno(
         estadoJuegoEnum: EstadoJuegoEnum,
@@ -40,15 +50,10 @@ class JuegoViewModelImpl constructor(
             })
 
             if (!finalizoJuegoHelper.hayGanador()) return@launch
-
+            ganadorJuego.postValue(finalizoJuegoHelper.traerGanador())
         }
     }
 
-    override fun reiniciarJuego() {
-        viewModelScope.launch {
-            val estadoInicialTablero = configuracionTablero.generarEstadoInicalTablero().traerConfiguracionInicalTablero()
-            estadoActualTablero.postValue(estadoInicialTablero)
-            turnoActual.postValue(EstadoJuegoEnum.TURNO_JUGADOR1)
-        }
-    }
+    override fun turnoActual(): MutableLiveData<EstadoJuegoEnum> = turnoActual
+
 }
