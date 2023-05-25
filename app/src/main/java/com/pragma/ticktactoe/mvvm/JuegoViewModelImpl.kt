@@ -42,14 +42,24 @@ class JuegoViewModelImpl constructor(
         detalleCasillaTriqui: DetalleCasillaTriqui
     ) {
         viewModelScope.launch {
-            estadoActualTablero.postValue(actualizarTableroHelper.actualizarTablero(casillasTablero = estadoActualTablero.value!!, detalleCasillaTriqui = detalleCasillaTriqui))
-            finalizoJuegoHelper.validarGanador(casillas = estadoActualTablero.value!!)
+            if (finalizoJuegoHelper.hayGanador()) return@launch
+            val tablero = actualizarTableroHelper.actualizarTablero(casillasTablero = estadoActualTablero.value!!, detalleCasillaTriqui = detalleCasillaTriqui)
+            estadoActualTablero.postValue(tablero)
+
+            detalleCasillaTriqui.apply {
+                jugadorCasillaActual = when(turnoActual.value!!) {
+                    EstadoJuegoEnum.TURNO_JUGADOR1 -> JugadorCasillaEnum.JUGADOR1
+                    EstadoJuegoEnum.TURNO_JUGADOR2 -> JugadorCasillaEnum.JUGADOR2
+                    EstadoJuegoEnum.REINICIAR_JUEGO -> JugadorCasillaEnum.NINGUNO
+                }
+            }
 
             turnoActual.postValue(when(estadoJuegoEnum) {
                 EstadoJuegoEnum.TURNO_JUGADOR1 -> EstadoJuegoEnum.TURNO_JUGADOR2
                 EstadoJuegoEnum.TURNO_JUGADOR2 -> EstadoJuegoEnum.TURNO_JUGADOR1
                 EstadoJuegoEnum.REINICIAR_JUEGO -> EstadoJuegoEnum.TURNO_JUGADOR1
             })
+            finalizoJuegoHelper.validarGanador(casillas = tablero)
 
             if (!finalizoJuegoHelper.hayGanador()) return@launch
             ganadorJuego.postValue(finalizoJuegoHelper.traerGanador())

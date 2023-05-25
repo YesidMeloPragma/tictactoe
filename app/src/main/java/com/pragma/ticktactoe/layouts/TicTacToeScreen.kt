@@ -30,13 +30,6 @@ fun TicTacToeScreen(juegoViewModel: JuegoViewModel) {
                 modifier = Modifier.weight(6f),
                 clicable = {
                     detalleCasillaTriqui ->
-                    detalleCasillaTriqui.apply {
-                        jugadorCasillaActual = when(turnoActual) {
-                            EstadoJuegoEnum.TURNO_JUGADOR1 -> JugadorCasillaEnum.JUGADOR1
-                            EstadoJuegoEnum.TURNO_JUGADOR2 -> JugadorCasillaEnum.JUGADOR2
-                            EstadoJuegoEnum.REINICIAR_JUEGO -> JugadorCasillaEnum.NINGUNO
-                        }
-                    }
                     juegoViewModel.turno(estadoJuegoEnum = turnoActual, detalleCasillaTriqui = detalleCasillaTriqui)
                 }
             )

@@ -12,8 +12,8 @@ class ActualizarTableroHelperImpl : ActualizarTableroHelper {
         val tableroActualizado = emptyList<DetalleCasillaTriqui>().toMutableList()
         tableroActualizado.addAll(casillasTablero)
 
-        val casilla = tableroActualizado.find { casilla -> casilla.casillaActual == detalleCasillaTriqui.casillaActual }
-        tableroActualizado[casillasTablero.indexOf(casilla)] = detalleCasillaTriqui
+        val casilla = tableroActualizado.find { item -> item.casillaActual == detalleCasillaTriqui.casillaActual }
+        tableroActualizado[tableroActualizado.indexOf(casilla)] = detalleCasillaTriqui
 
         return tableroActualizado
     }

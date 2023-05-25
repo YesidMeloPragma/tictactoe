@@ -1,6 +1,5 @@
 package com.pragma.ticktactoe.layouts
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -191,7 +190,6 @@ fun casilla(
     if (detalleCasilla.jugadorCasillaActual == JugadorCasillaEnum.NINGUNO) {
         Box(modifier = modifier
             .size(90.dp)
-            .background(color = Color.Black)
             .clickable {
                 clicable.invoke(DetalleCasillaTriqui().apply { casillaActual = identificador })
             }
