@@ -4,6 +4,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.pragma.ticktactoe.constantes.EstadoJuegoEnum
 import com.pragma.ticktactoe.models.DetalleCasillaTriqui
+import com.pragma.ticktactoe.mvvm.helpers.configurarTableroHelper.ConfigurarTableroHelper
+import com.pragma.ticktactoe.mvvm.helpers.configurarTableroHelper.ConfigurarTableroHelperImpl
+import com.pragma.ticktactoe.mvvm.helpers.finalizoJuegoHelper.FinalizoJuegoHelper
+import com.pragma.ticktactoe.mvvm.helpers.finalizoJuegoHelper.FinalizoJuegoHelperImpl
 import kotlinx.coroutines.launch
 
 class JuegoViewModelImpl constructor(
@@ -24,6 +28,8 @@ class JuegoViewModelImpl constructor(
     ) {
         viewModelScope.launch {
 
+            if (!finalizoJuegoHelper.hayGanador()) return@launch
+            finalizoJuegoHelper.validarGanador(casillas = estadoActualTablero.value!!)
         }
     }
 

@@ -1,12 +1,8 @@
-package com.pragma.ticktactoe.mvvm
+package com.pragma.ticktactoe.mvvm.helpers.configurarTableroHelper
 
 import com.pragma.ticktactoe.constantes.CasillasTableroEnum
 import com.pragma.ticktactoe.models.DetalleCasillaTriqui
 
-interface ConfigurarTableroHelper {
-    fun generarEstadoInicalTablero() : ConfigurarTableroHelper
-    fun traerConfiguracionInicalTablero(): MutableList<DetalleCasillaTriqui>
-}
 
 class ConfigurarTableroHelperImpl : ConfigurarTableroHelper {
     private val configuracionInicial = emptyList<DetalleCasillaTriqui>().toMutableList()

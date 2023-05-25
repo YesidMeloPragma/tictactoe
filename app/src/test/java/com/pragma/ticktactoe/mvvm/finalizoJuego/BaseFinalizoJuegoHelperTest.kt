@@ -1,8 +1,7 @@
 package com.pragma.ticktactoe.mvvm.finalizoJuego
 
-import com.pragma.ticktactoe.mvvm.FinalizoJuegoHelper
-import com.pragma.ticktactoe.mvvm.FinalizoJuegoHelperImpl
-import org.junit.After
+import com.pragma.ticktactoe.mvvm.helpers.finalizoJuegoHelper.FinalizoJuegoHelper
+import com.pragma.ticktactoe.mvvm.helpers.finalizoJuegoHelper.FinalizoJuegoHelperImpl
 import org.junit.Before
 
 abstract class BaseFinalizoJuegoHelperTest {

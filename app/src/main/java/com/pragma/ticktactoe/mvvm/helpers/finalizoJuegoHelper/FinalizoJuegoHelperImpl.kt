@@ -1,14 +1,9 @@
-package com.pragma.ticktactoe.mvvm
+package com.pragma.ticktactoe.mvvm.helpers.finalizoJuegoHelper
 
 import com.pragma.ticktactoe.constantes.CasillasTableroEnum
 import com.pragma.ticktactoe.constantes.JugadorCasillaEnum
 import com.pragma.ticktactoe.models.DetalleCasillaTriqui
 
-interface FinalizoJuegoHelper {
-    fun traerGanador(): JugadorCasillaEnum
-    fun hayGanador(): Boolean
-    fun validarGanador(casillas: List<DetalleCasillaTriqui>)
-}
 
 class FinalizoJuegoHelperImpl : FinalizoJuegoHelper {
 
@@ -75,8 +70,8 @@ class FinalizoJuegoHelperImpl : FinalizoJuegoHelper {
     private fun hayGanadorDiagonalDerecha(casillas: List<DetalleCasillaTriqui>) : Boolean {
         val diagonalDerecho = casillas.filter { casilla ->
             casilla.casillaActual == CasillasTableroEnum.CASILLA_0_2 ||
-            casilla.casillaActual == CasillasTableroEnum.CASILLA_1_1 ||
-            casilla.casillaActual == CasillasTableroEnum.CASILLA_2_0
+                    casilla.casillaActual == CasillasTableroEnum.CASILLA_1_1 ||
+                    casilla.casillaActual == CasillasTableroEnum.CASILLA_2_0
         }
 
         val jugador = diagonalDerecho.filter { casilla -> casilla.jugadorCasillaActual != JugadorCasillaEnum.NINGUNO }

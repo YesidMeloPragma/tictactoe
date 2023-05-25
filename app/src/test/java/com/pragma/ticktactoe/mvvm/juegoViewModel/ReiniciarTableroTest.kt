@@ -1,4 +1,4 @@
-package com.pragma.ticktactoe.mvvm.JuegoViewModel
+package com.pragma.ticktactoe.mvvm.juegoViewModel
 
 import com.pragma.ticktactoe.constantes.EstadoJuegoEnum
 import io.mockk.coEvery

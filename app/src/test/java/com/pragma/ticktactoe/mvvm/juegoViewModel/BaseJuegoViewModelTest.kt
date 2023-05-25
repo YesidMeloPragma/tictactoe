@@ -1,17 +1,15 @@
-package com.pragma.ticktactoe.mvvm.JuegoViewModel
+package com.pragma.ticktactoe.mvvm.juegoViewModel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.pragma.ticktactoe.constantes.CasillasTableroEnum
 import com.pragma.ticktactoe.models.DetalleCasillaTriqui
-import com.pragma.ticktactoe.mvvm.ConfigurarTableroHelper
+import com.pragma.ticktactoe.mvvm.helpers.configurarTableroHelper.ConfigurarTableroHelper
 import com.pragma.ticktactoe.mvvm.JuegoViewModel
 import com.pragma.ticktactoe.mvvm.JuegoViewModelImpl
 import com.pragma.ticktactoe.tools.MainCoroutineRule
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.RelaxedMockK
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.setMain
 import org.junit.Before
 import org.junit.Rule
 

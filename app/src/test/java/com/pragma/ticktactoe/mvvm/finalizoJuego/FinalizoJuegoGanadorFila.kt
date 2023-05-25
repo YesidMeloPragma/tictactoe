@@ -2,7 +2,6 @@ package com.pragma.ticktactoe.mvvm.finalizoJuego
 
 import com.pragma.ticktactoe.constantes.CasillasTableroEnum
 import com.pragma.ticktactoe.constantes.JugadorCasillaEnum
-import com.pragma.ticktactoe.constantes.ValorCasillaEnum
 import com.pragma.ticktactoe.models.DetalleCasillaTriqui
 import org.junit.Test
 
@@ -76,7 +75,6 @@ class FinalizoJuegoGanadorFila : BaseFinalizoJuegoHelperTest() {
             lista.add(DetalleCasillaTriqui().apply {
                 this.casillaActual = casilla
                 this.jugadorCasillaActual = JugadorCasillaEnum.JUGADOR1
-                this.valorCasillaActual = ValorCasillaEnum.O
             })
         }
         return lista
@@ -93,7 +91,6 @@ class FinalizoJuegoGanadorFila : BaseFinalizoJuegoHelperTest() {
             lista.add(DetalleCasillaTriqui().apply {
                 this.casillaActual = casilla
                 this.jugadorCasillaActual = JugadorCasillaEnum.JUGADOR1
-                this.valorCasillaActual = ValorCasillaEnum.O
             })
         }
         return lista
@@ -109,7 +106,6 @@ class FinalizoJuegoGanadorFila : BaseFinalizoJuegoHelperTest() {
             lista.add(DetalleCasillaTriqui().apply {
                 this.casillaActual = casilla
                 this.jugadorCasillaActual = JugadorCasillaEnum.JUGADOR1
-                this.valorCasillaActual = ValorCasillaEnum.O
             })
         }
         return lista
@@ -120,19 +116,16 @@ class FinalizoJuegoGanadorFila : BaseFinalizoJuegoHelperTest() {
         lista.add(DetalleCasillaTriqui().apply {
             this.casillaActual = CasillasTableroEnum.CASILLA_0_2
             this.jugadorCasillaActual = JugadorCasillaEnum.JUGADOR1
-            this.valorCasillaActual = ValorCasillaEnum.O
         })
 
         lista.add(DetalleCasillaTriqui().apply {
             this.casillaActual = CasillasTableroEnum.CASILLA_1_1
             this.jugadorCasillaActual = JugadorCasillaEnum.JUGADOR1
-            this.valorCasillaActual = ValorCasillaEnum.O
         })
 
         lista.add(DetalleCasillaTriqui().apply {
             this.casillaActual = CasillasTableroEnum.CASILLA_2_0
             this.jugadorCasillaActual = JugadorCasillaEnum.JUGADOR1
-            this.valorCasillaActual = ValorCasillaEnum.O
         })
         for (casilla in CasillasTableroEnum.values()) {
             if (casilla == CasillasTableroEnum.CASILLA_0_2 ||
