@@ -1,4 +1,4 @@
-package com.pragma.ticktactoe.mvvm.finalizoJuego
+package com.pragma.ticktactoe.mvvm.finalizoJuegoHelper
 
 import com.pragma.ticktactoe.constantes.CasillasTableroEnum
 import com.pragma.ticktactoe.constantes.JugadorCasillaEnum

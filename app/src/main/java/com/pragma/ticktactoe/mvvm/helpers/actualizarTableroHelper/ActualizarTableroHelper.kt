@@ -5,8 +5,8 @@ import com.pragma.ticktactoe.models.DetalleCasillaTriqui
 interface ActualizarTableroHelper {
 
     fun actualizarTablero(
-        casillasTablero : List<DetalleCasillaTriqui>,
+        casillasTablero : MutableList<DetalleCasillaTriqui>,
         detalleCasillaTriqui: DetalleCasillaTriqui
-    )
+    ): MutableList<DetalleCasillaTriqui>
 
 }
