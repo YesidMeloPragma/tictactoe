@@ -6,7 +6,7 @@ import com.pragma.ticktactoe.constantes.EstadoJuegoEnum
 import com.pragma.ticktactoe.models.DetalleCasillaTriqui
 
 abstract class JuegoViewModel : ViewModel() {
-    abstract fun estadoActualTablero() : MutableLiveData<List<DetalleCasillaTriqui>>
+    abstract fun estadoActualTablero() : MutableLiveData<MutableList<DetalleCasillaTriqui>>
     abstract fun turnoActual(): MutableLiveData<EstadoJuegoEnum>
     abstract fun reiniciarJuego()
     abstract fun turno(estadoJuegoEnum: EstadoJuegoEnum, detalleCasillaTriqui: DetalleCasillaTriqui)

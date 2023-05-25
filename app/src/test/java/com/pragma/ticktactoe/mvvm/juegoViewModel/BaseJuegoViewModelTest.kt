@@ -6,6 +6,8 @@ import com.pragma.ticktactoe.models.DetalleCasillaTriqui
 import com.pragma.ticktactoe.mvvm.helpers.configurarTableroHelper.ConfigurarTableroHelper
 import com.pragma.ticktactoe.mvvm.JuegoViewModel
 import com.pragma.ticktactoe.mvvm.JuegoViewModelImpl
+import com.pragma.ticktactoe.mvvm.helpers.actualizarTableroHelper.ActualizarTableroHelper
+import com.pragma.ticktactoe.mvvm.helpers.finalizoJuegoHelper.FinalizoJuegoHelper
 import com.pragma.ticktactoe.tools.MainCoroutineRule
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.RelaxedMockK
@@ -22,7 +24,11 @@ import org.junit.Rule
 @OptIn(ExperimentalCoroutinesApi::class)
 abstract class BaseJuegoViewModelTest {
     @RelaxedMockK
+    protected lateinit var actualizarTableroHelper: ActualizarTableroHelper
+    @RelaxedMockK
     protected lateinit var configurarTableroHelper: ConfigurarTableroHelper
+    @RelaxedMockK
+    protected lateinit var finalizoJuegoHelper: FinalizoJuegoHelper
     protected lateinit var juegoViewModel: JuegoViewModel
 
     @get:Rule
@@ -34,7 +40,11 @@ abstract class BaseJuegoViewModelTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        juegoViewModel = JuegoViewModelImpl(configuracionTablero = configurarTableroHelper)
+        juegoViewModel = JuegoViewModelImpl(
+            actualizarTableroHelper = actualizarTableroHelper,
+            configuracionTablero = configurarTableroHelper,
+            finalizoJuegoHelper = finalizoJuegoHelper
+        )
     }
 
     protected fun traerTablero() : MutableList<DetalleCasillaTriqui> {

@@ -4,6 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.pragma.ticktactoe.constantes.EstadoJuegoEnum
 import com.pragma.ticktactoe.models.DetalleCasillaTriqui
+import com.pragma.ticktactoe.mvvm.helpers.actualizarTableroHelper.ActualizarTableroHelper
+import com.pragma.ticktactoe.mvvm.helpers.actualizarTableroHelper.ActualizarTableroHelperImpl
 import com.pragma.ticktactoe.mvvm.helpers.configurarTableroHelper.ConfigurarTableroHelper
 import com.pragma.ticktactoe.mvvm.helpers.configurarTableroHelper.ConfigurarTableroHelperImpl
 import com.pragma.ticktactoe.mvvm.helpers.finalizoJuegoHelper.FinalizoJuegoHelper
@@ -11,14 +13,15 @@ import com.pragma.ticktactoe.mvvm.helpers.finalizoJuegoHelper.FinalizoJuegoHelpe
 import kotlinx.coroutines.launch
 
 class JuegoViewModelImpl constructor(
+    private val actualizarTableroHelper: ActualizarTableroHelper = ActualizarTableroHelperImpl(),
     private val configuracionTablero: ConfigurarTableroHelper = ConfigurarTableroHelperImpl(),
     private val finalizoJuegoHelper: FinalizoJuegoHelper = FinalizoJuegoHelperImpl()
 ) : JuegoViewModel() {
 
-    private val estadoActualTablero: MutableLiveData<List<DetalleCasillaTriqui>> = MutableLiveData<List<DetalleCasillaTriqui>>()
+    private val estadoActualTablero: MutableLiveData<MutableList<DetalleCasillaTriqui>> = MutableLiveData<MutableList<DetalleCasillaTriqui>>()
     private val turnoActual: MutableLiveData<EstadoJuegoEnum> = MutableLiveData<EstadoJuegoEnum>()
 
-    override fun estadoActualTablero(): MutableLiveData<List<DetalleCasillaTriqui>> = estadoActualTablero
+    override fun estadoActualTablero(): MutableLiveData<MutableList<DetalleCasillaTriqui>> = estadoActualTablero
 
     override fun turnoActual(): MutableLiveData<EstadoJuegoEnum> = turnoActual
 
@@ -27,9 +30,17 @@ class JuegoViewModelImpl constructor(
         detalleCasillaTriqui: DetalleCasillaTriqui
     ) {
         viewModelScope.launch {
+            estadoActualTablero.postValue(actualizarTableroHelper.actualizarTablero(casillasTablero = estadoActualTablero.value!!, detalleCasillaTriqui = detalleCasillaTriqui))
+            finalizoJuegoHelper.validarGanador(casillas = estadoActualTablero.value!!)
+
+            turnoActual.postValue(when(estadoJuegoEnum) {
+                EstadoJuegoEnum.TURNO_JUGADOR1 -> EstadoJuegoEnum.TURNO_JUGADOR2
+                EstadoJuegoEnum.TURNO_JUGADOR2 -> EstadoJuegoEnum.TURNO_JUGADOR1
+                EstadoJuegoEnum.REINICIAR_JUEGO -> EstadoJuegoEnum.TURNO_JUGADOR1
+            })
 
             if (!finalizoJuegoHelper.hayGanador()) return@launch
-            finalizoJuegoHelper.validarGanador(casillas = estadoActualTablero.value!!)
+
         }
     }
 
