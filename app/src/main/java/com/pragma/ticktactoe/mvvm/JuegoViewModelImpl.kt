@@ -1,5 +1,6 @@
 package com.pragma.ticktactoe.mvvm
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.pragma.ticktactoe.constantes.EstadoJuegoEnum
@@ -23,9 +24,9 @@ class JuegoViewModelImpl constructor(
     private val turnoActual: MutableLiveData<EstadoJuegoEnum> = MutableLiveData<EstadoJuegoEnum>()
     private val ganadorJuego: MutableLiveData<JugadorCasillaEnum> = MutableLiveData()
 
-    override fun estadoActualTablero(): MutableLiveData<MutableList<DetalleCasillaTriqui>> = estadoActualTablero
+    override fun estadoActualTablero(): LiveData<MutableList<DetalleCasillaTriqui>> = estadoActualTablero
 
-    override fun ganadorDelJuego(): MutableLiveData<JugadorCasillaEnum> = ganadorJuego
+    override fun ganadorDelJuego(): LiveData<JugadorCasillaEnum> = ganadorJuego
 
     override fun reiniciarJuego() {
         viewModelScope.launch {
@@ -55,6 +56,6 @@ class JuegoViewModelImpl constructor(
         }
     }
 
-    override fun turnoActual(): MutableLiveData<EstadoJuegoEnum> = turnoActual
+    override fun turnoActual(): LiveData<EstadoJuegoEnum> = turnoActual
 
 }
