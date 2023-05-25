@@ -3,10 +3,15 @@ package com.pragma.ticktactoe.mvvm
 import com.pragma.ticktactoe.constantes.CasillasTableroEnum
 import com.pragma.ticktactoe.models.DetalleCasillaTriqui
 
-class ConfigurarTableroHelper {
+interface ConfigurarTableroHelper {
+    fun generarEstadoInicalTablero() : ConfigurarTableroHelper
+    fun traerConfiguracionInicalTablero(): MutableList<DetalleCasillaTriqui>
+}
+
+class ConfigurarTableroHelperImpl : ConfigurarTableroHelper {
     private val configuracionInicial = emptyList<DetalleCasillaTriqui>().toMutableList()
 
-    fun generarEstadoInicalTablero() : ConfigurarTableroHelper {
+    override fun generarEstadoInicalTablero() : ConfigurarTableroHelper {
         configuracionInicial.clear()
         CasillasTableroEnum.values().forEach {
             configuracionInicial.add(generarCasilla(casillaActual = it))
@@ -14,7 +19,7 @@ class ConfigurarTableroHelper {
         return this
     }
 
-    fun traerConfiguracionInicalTablero() = configuracionInicial
+    override fun traerConfiguracionInicalTablero() = configuracionInicial
 
     private fun generarCasilla(
         casillaActual: CasillasTableroEnum
