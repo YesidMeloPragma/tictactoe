@@ -32,6 +32,7 @@ class JuegoViewModelImpl constructor(
             val estadoInicialTablero = configuracionTablero.generarEstadoInicalTablero().traerConfiguracionInicalTablero()
             estadoActualTablero.postValue(estadoInicialTablero)
             turnoActual.postValue(EstadoJuegoEnum.TURNO_JUGADOR1)
+            ganadorJuego.postValue(JugadorCasillaEnum.NINGUNO)
         }
     }
 
