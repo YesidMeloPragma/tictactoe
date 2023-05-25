@@ -197,9 +197,9 @@ fun casilla(
         return
     }
     val id = when(detalleCasilla.jugadorCasillaActual) {
-        JugadorCasillaEnum.NINGUNO -> R.mipmap.o
         JugadorCasillaEnum.JUGADOR1 -> R.mipmap.o
         JugadorCasillaEnum.JUGADOR2 -> R.mipmap.x
+        else -> R.mipmap.x
     }
     Image(
         painter = painterResource(id = id),

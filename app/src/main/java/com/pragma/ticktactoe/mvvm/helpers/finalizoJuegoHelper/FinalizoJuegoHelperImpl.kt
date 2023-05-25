@@ -11,15 +11,20 @@ class FinalizoJuegoHelperImpl : FinalizoJuegoHelper {
     private var hayGanador = false
     private val numeroMaximoCasillas = 3
 
-    override fun traerGanador(): JugadorCasillaEnum = ganador
-
     override fun hayGanador(): Boolean = hayGanador
+    override fun reiniciar() {
+        ganador = JugadorCasillaEnum.NINGUNO
+        hayGanador = false
+    }
+
+    override fun traerGanador(): JugadorCasillaEnum = ganador
 
     override fun validarGanador(casillas: List<DetalleCasillaTriqui>) {
         if (hayGanadorHorizontal(casillas = casillas)) return
         if(hayGanadorVertical(casillas = casillas)) return
         if(hayGanadorDiagonalIzquierda(casillas = casillas)) return
-        hayGanadorDiagonalDerecha(casillas = casillas)
+        if(hayGanadorDiagonalDerecha(casillas = casillas)) return
+        hayEmpate(casillas = casillas)
     }
 
     private fun hayGanadorHorizontal(casillas: List<DetalleCasillaTriqui>) : Boolean{
@@ -70,8 +75,8 @@ class FinalizoJuegoHelperImpl : FinalizoJuegoHelper {
     private fun hayGanadorDiagonalDerecha(casillas: List<DetalleCasillaTriqui>) : Boolean {
         val diagonalDerecho = casillas.filter { casilla ->
             casilla.casillaActual == CasillasTableroEnum.CASILLA_0_2 ||
-                    casilla.casillaActual == CasillasTableroEnum.CASILLA_1_1 ||
-                    casilla.casillaActual == CasillasTableroEnum.CASILLA_2_0
+            casilla.casillaActual == CasillasTableroEnum.CASILLA_1_1 ||
+            casilla.casillaActual == CasillasTableroEnum.CASILLA_2_0
         }
 
         val jugador = diagonalDerecho.filter { casilla -> casilla.jugadorCasillaActual != JugadorCasillaEnum.NINGUNO }
@@ -82,5 +87,15 @@ class FinalizoJuegoHelperImpl : FinalizoJuegoHelper {
         this.hayGanador = true
         this.ganador = jugadorActual
         return true
+    }
+
+    private fun hayEmpate(casillas: List<DetalleCasillaTriqui>) : Boolean {
+        val revision = casillas.filter { cas -> cas.jugadorCasillaActual != JugadorCasillaEnum.NINGUNO }
+        if (revision.size == 9) {
+            this.ganador = JugadorCasillaEnum.EMPATE
+            hayGanador = true
+            return true
+        }
+        return false
     }
 }

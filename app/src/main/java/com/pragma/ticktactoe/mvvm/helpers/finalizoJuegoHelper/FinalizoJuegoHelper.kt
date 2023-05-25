@@ -5,7 +5,8 @@ import com.pragma.ticktactoe.constantes.JugadorCasillaEnum
 import com.pragma.ticktactoe.models.DetalleCasillaTriqui
 
 interface FinalizoJuegoHelper {
-    fun traerGanador(): JugadorCasillaEnum
     fun hayGanador(): Boolean
+    fun reiniciar()
+    fun traerGanador(): JugadorCasillaEnum
     fun validarGanador(casillas: List<DetalleCasillaTriqui>)
 }

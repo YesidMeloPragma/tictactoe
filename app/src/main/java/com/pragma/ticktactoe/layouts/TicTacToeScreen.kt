@@ -24,7 +24,12 @@ fun TicTacToeScreen(juegoViewModel: JuegoViewModel) {
         .fillMaxSize()
         .background(Purple80)) {
         Column(modifier = Modifier.fillMaxSize()) {
-            Encabezado(modifier = Modifier.weight(3f), turnoActual = turnoActual, ganadorJuego = ganadorJuego)
+            Encabezado(
+                modifier = Modifier.weight(3f),
+                turnoActual = turnoActual,
+                ganadorJuego = ganadorJuego,
+                reiniciarJuego = {juegoViewModel.reiniciarJuego()}
+            )
             Tablero(
                 estadoTablero = estadoActualTablero,
                 modifier = Modifier.weight(6f),

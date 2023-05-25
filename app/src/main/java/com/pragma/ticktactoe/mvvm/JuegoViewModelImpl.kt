@@ -20,6 +20,7 @@ class JuegoViewModelImpl constructor(
     private val finalizoJuegoHelper: FinalizoJuegoHelper = FinalizoJuegoHelperImpl()
 ) : JuegoViewModel() {
 
+    private val empate: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
     private val estadoActualTablero: MutableLiveData<MutableList<DetalleCasillaTriqui>> = MutableLiveData<MutableList<DetalleCasillaTriqui>>()
     private val turnoActual: MutableLiveData<EstadoJuegoEnum> = MutableLiveData<EstadoJuegoEnum>()
     private val ganadorJuego: MutableLiveData<JugadorCasillaEnum> = MutableLiveData()
@@ -30,6 +31,7 @@ class JuegoViewModelImpl constructor(
 
     override fun reiniciarJuego() {
         viewModelScope.launch {
+            finalizoJuegoHelper.reiniciar()
             val estadoInicialTablero = configuracionTablero.generarEstadoInicalTablero().traerConfiguracionInicalTablero()
             estadoActualTablero.postValue(estadoInicialTablero)
             turnoActual.postValue(EstadoJuegoEnum.TURNO_JUGADOR1)
@@ -43,6 +45,7 @@ class JuegoViewModelImpl constructor(
     ) {
         viewModelScope.launch {
             if (finalizoJuegoHelper.hayGanador()) return@launch
+
             val tablero = actualizarTableroHelper.actualizarTablero(casillasTablero = estadoActualTablero.value!!, detalleCasillaTriqui = detalleCasillaTriqui)
             estadoActualTablero.postValue(tablero)
 
