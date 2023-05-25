@@ -1,5 +1,6 @@
 package com.pragma.ticktactoe.mvvm
 
+import com.pragma.ticktactoe.constantes.CasillasTableroEnum
 import com.pragma.ticktactoe.constantes.JugadorCasillaEnum
 import com.pragma.ticktactoe.models.DetalleCasillaTriqui
 
@@ -68,10 +69,23 @@ class FinalizoJuegoHelperImpl : FinalizoJuegoHelper {
         if (ganador.size < 3) return false
         hayGanador = true
         this.ganador =  jugadorActual
-        return false
+        return true
     }
 
     private fun hayGanadorDiagonalDerecha(casillas: List<DetalleCasillaTriqui>) : Boolean {
-        return false
+        val diagonalDerecho = casillas.filter { casilla ->
+            casilla.casillaActual == CasillasTableroEnum.CASILLA_0_2 ||
+            casilla.casillaActual == CasillasTableroEnum.CASILLA_1_1 ||
+            casilla.casillaActual == CasillasTableroEnum.CASILLA_2_0
+        }
+
+        val jugador = diagonalDerecho.filter { casilla -> casilla.jugadorCasillaActual != JugadorCasillaEnum.NINGUNO }
+        if (jugador.size < 3) return false
+        val jugadorActual = jugador.first().jugadorCasillaActual
+        val casillasJugadorGanador = jugador.filter { casilla -> casilla.jugadorCasillaActual == jugadorActual }
+        if (casillasJugadorGanador.size < 3) return false
+        this.hayGanador = true
+        this.ganador = jugadorActual
+        return true
     }
 }
