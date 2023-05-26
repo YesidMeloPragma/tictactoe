@@ -15,6 +15,7 @@ class TurnoTest : BaseJuegoViewModelTest() {
     @Test
     fun primerTurno() {
         //Preconfiguracion
+        val llamadosHayGanador = 2
         val tablero = traerTablero()
         val casillaAActualizar = DetalleCasillaTriqui().apply { jugadorCasillaActual = JugadorCasillaEnum.JUGADOR1 }
         val tableroActualizado = emptyList<DetalleCasillaTriqui>().toMutableList()
@@ -35,38 +36,25 @@ class TurnoTest : BaseJuegoViewModelTest() {
         Assert.assertEquals(EstadoJuegoEnum.TURNO_JUGADOR2, juegoViewModel.turnoActual().value)
         verify(exactly = 1) { actualizarTableroHelper.actualizarTablero(casillasTablero = any(), detalleCasillaTriqui = any()) }
         verify(exactly = 1) { finalizoJuegoHelper.validarGanador(casillas = any()) }
-        verify(exactly = 1) { finalizoJuegoHelper.hayGanador()}
+        verify(exactly = llamadosHayGanador) { finalizoJuegoHelper.hayGanador()}
         verify(exactly = 0) { finalizoJuegoHelper.traerGanador()}
     }
 
     @Test
     fun turnoGanador() {
-        //Preconfiguracion
-        val tablero = traerTablero()
-        val casillaAActualizar = DetalleCasillaTriqui().apply { jugadorCasillaActual = JugadorCasillaEnum.JUGADOR1 }
-        val tableroActualizado = emptyList<DetalleCasillaTriqui>().toMutableList()
-
-        tableroActualizado.addAll(tablero)
-        tableroActualizado[tablero.indexOf(tableroActualizado.find { cas -> cas.casillaActual == CasillasTableroEnum.CASILLA_0_0 })] = casillaAActualizar
-
         //Given
-        coEvery { actualizarTableroHelper.actualizarTablero(casillasTablero = any(), detalleCasillaTriqui = any()) }.returns(tableroActualizado)
         coEvery { finalizoJuegoHelper.hayGanador() } returns true
-        coEvery { finalizoJuegoHelper.traerGanador() } returns JugadorCasillaEnum.JUGADOR1
 
         //When
-        juegoViewModel.reiniciarJuego()
-        juegoViewModel.turno(estadoJuegoEnum = EstadoJuegoEnum.TURNO_JUGADOR1, detalleCasillaTriqui =  casillaAActualizar)
+        juegoViewModel.turno(estadoJuegoEnum = EstadoJuegoEnum.TURNO_JUGADOR2, detalleCasillaTriqui = DetalleCasillaTriqui())
 
         //Then
-        Assert.assertEquals(tableroActualizado, juegoViewModel.estadoActualTablero().value)
-        Assert.assertEquals(EstadoJuegoEnum.TURNO_JUGADOR2, juegoViewModel.turnoActual().value)
-        Assert.assertEquals(JugadorCasillaEnum.JUGADOR1, juegoViewModel.ganadorDelJuego().value)
 
-        verify(exactly = 1) { actualizarTableroHelper.actualizarTablero(casillasTablero = any(), detalleCasillaTriqui = any()) }
-        verify(exactly = 1) { finalizoJuegoHelper.validarGanador(casillas = any()) }
-        verify(exactly = 1) { finalizoJuegoHelper.hayGanador()}
-        verify(exactly = 1) { finalizoJuegoHelper.traerGanador()}
+        verify(exactly = 1) { finalizoJuegoHelper.hayGanador() }
+        verify(exactly = 0) { actualizarTableroHelper.actualizarTablero(casillasTablero = any(), detalleCasillaTriqui = any()) }
+        verify(exactly = 0) { finalizoJuegoHelper.validarGanador(casillas = any()) }
+
+
     }
 
 }

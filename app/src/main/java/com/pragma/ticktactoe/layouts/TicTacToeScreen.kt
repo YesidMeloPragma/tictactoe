@@ -30,14 +30,24 @@ fun TicTacToeScreen(juegoViewModel: JuegoViewModel) {
                 ganadorJuego = ganadorJuego,
                 reiniciarJuego = {juegoViewModel.reiniciarJuego()}
             )
-            Tablero(
-                estadoTablero = estadoActualTablero,
-                modifier = Modifier.weight(6f),
-                clicable = {
-                    detalleCasillaTriqui ->
-                    juegoViewModel.turno(estadoJuegoEnum = turnoActual, detalleCasillaTriqui = detalleCasillaTriqui)
-                }
-            )
+            if(ganadorJuego == JugadorCasillaEnum.NINGUNO) {
+                Tablero(
+                    estadoTablero = estadoActualTablero,
+                    modifier = Modifier.weight(6f),
+                    clicable = {
+                            detalleCasillaTriqui ->
+                        juegoViewModel.turno(estadoJuegoEnum = turnoActual, detalleCasillaTriqui = detalleCasillaTriqui)
+                        juegoViewModel.notificarGanador()
+                    }
+                )
+            } else {
+                Ganador(
+                    modifier = Modifier.fillMaxSize().weight(6f),
+                    jugadorCasillaEnum = ganadorJuego,
+                    clicable = {}
+                )
+            }
+
             Pie(modifier = Modifier.weight(1f))
         }
     }
