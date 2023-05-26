@@ -18,4 +18,19 @@ class NotificarGanadorTest : BaseJuegoViewModelTest() {
         verify(exactly = 1) { finalizoJuegoHelper.hayGanador()  }
         verify(exactly = 0) { finalizoJuegoHelper.traerGanador()  }
     }
+
+    @Test
+    fun hayGanador() {
+        //Given
+        coEvery { finalizoJuegoHelper.hayGanador() } returns true
+
+        //when
+        juegoViewModel.notificarGanador()
+
+        //then
+        verify(exactly = 1) { finalizoJuegoHelper.hayGanador()  }
+        verify(exactly = 1) { finalizoJuegoHelper.traerGanador()  }
+    }
+
+
 }
