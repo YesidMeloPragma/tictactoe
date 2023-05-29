@@ -15,7 +15,6 @@ class TurnoTest : BaseJuegoViewModelTest() {
     @Test
     fun primerTurno() {
         //Preconfiguracion
-        val llamadosHayGanador = 2
         val tablero = traerTablero()
         val casillaAActualizar = DetalleCasillaTriqui().apply { jugadorCasillaActual = JugadorCasillaEnum.JUGADOR1 }
         val tableroActualizado = emptyList<DetalleCasillaTriqui>().toMutableList()
@@ -36,7 +35,7 @@ class TurnoTest : BaseJuegoViewModelTest() {
         Assert.assertEquals(EstadoJuegoEnum.TURNO_JUGADOR2, juegoViewModel.turnoActual().value)
         verify(exactly = 1) { actualizarTableroHelper.actualizarTablero(casillasTablero = any(), detalleCasillaTriqui = any()) }
         verify(exactly = 1) { finalizoJuegoHelper.validarGanador(casillas = any()) }
-        verify(exactly = llamadosHayGanador) { finalizoJuegoHelper.hayGanador()}
+        verify(exactly = 1) { finalizoJuegoHelper.hayGanador()}
         verify(exactly = 0) { finalizoJuegoHelper.traerGanador()}
     }
 

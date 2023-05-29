@@ -2,18 +2,31 @@ package com.pragma.ticktactoe.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.pragma.ticktactoe.R
+
+//region fonts
+val poppins = FontFamily(
+    Font(R.font.poppins)
+)
+//endregion
 
 // Set of Material typography styles to start with
-val Typography = Typography(
+val MyTypography = Typography(
     bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
+        fontFamily = poppins,
+        fontSize = 40.sp,
+        fontWeight = FontWeight.W400
+    ),
+    bodyMedium = TextStyle(
+        fontFamily = poppins,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
         lineHeight = 24.sp,
-        letterSpacing = 0.5.sp
+        letterSpacing = 0.1.sp,
     )
     /* Other default text styles to override
     titleLarge = TextStyle(

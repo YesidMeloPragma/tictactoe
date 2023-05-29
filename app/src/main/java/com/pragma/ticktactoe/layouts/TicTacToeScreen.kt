@@ -8,11 +8,39 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.MutableLiveData
 import com.pragma.ticktactoe.constantes.EstadoJuegoEnum
 import com.pragma.ticktactoe.constantes.JugadorCasillaEnum
 import com.pragma.ticktactoe.models.DetalleCasillaTriqui
 import com.pragma.ticktactoe.mvvm.JuegoViewModel
 import com.pragma.ticktactoe.ui.theme.Purple80
+
+@Preview(showBackground = true)
+@Composable
+fun prevScreenTictactoe() {
+    val estadoTablero = MutableLiveData<MutableList<DetalleCasillaTriqui>>()
+    val ganadorJuego = MutableLiveData<JugadorCasillaEnum>()
+    val turnoActual = MutableLiveData<EstadoJuegoEnum>()
+    ganadorJuego.value = JugadorCasillaEnum.JUGADOR1
+    TicTacToeScreen(juegoViewModel = object : JuegoViewModel() {
+        override fun estadoActualTablero()=estadoTablero
+
+        override fun ganadorDelJuego() = ganadorJuego
+
+        override fun notificarGanador() {}
+
+        override fun reiniciarJuego() {}
+
+        override fun turno(
+            estadoJuegoEnum: EstadoJuegoEnum,
+            detalleCasillaTriqui: DetalleCasillaTriqui
+        ) {}
+
+        override fun turnoActual() = turnoActual
+
+    })
+}
 
 @Composable
 fun TicTacToeScreen(juegoViewModel: JuegoViewModel) {
@@ -40,7 +68,9 @@ fun TicTacToeScreen(juegoViewModel: JuegoViewModel) {
                 )
             } else {
                 Ganador(
-                    modifier = Modifier.fillMaxSize().weight(6f),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .weight(6f),
                     jugadorCasillaEnum = ganadorJuego,
                     clicable = { juegoViewModel.reiniciarJuego() }
                 )
