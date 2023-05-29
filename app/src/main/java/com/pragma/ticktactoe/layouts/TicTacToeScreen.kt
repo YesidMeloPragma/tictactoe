@@ -16,6 +16,7 @@ import com.pragma.ticktactoe.models.DetalleCasillaTriqui
 import com.pragma.ticktactoe.mvvm.JuegoViewModel
 import com.pragma.ticktactoe.ui.theme.Purple80
 
+@SuppressWarnings("kotlin:S1186")
 @Preview(showBackground = true)
 @Composable
 fun prevScreenTictactoe() {
