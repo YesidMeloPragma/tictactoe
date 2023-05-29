@@ -26,9 +26,7 @@ fun TicTacToeScreen(juegoViewModel: JuegoViewModel) {
         Column(modifier = Modifier.fillMaxSize()) {
             Encabezado(
                 modifier = Modifier.weight(3f),
-                turnoActual = turnoActual,
-                ganadorJuego = ganadorJuego,
-                reiniciarJuego = {juegoViewModel.reiniciarJuego()}
+                turnoActual = turnoActual
             )
             if(ganadorJuego == JugadorCasillaEnum.NINGUNO) {
                 Tablero(
@@ -44,7 +42,7 @@ fun TicTacToeScreen(juegoViewModel: JuegoViewModel) {
                 Ganador(
                     modifier = Modifier.fillMaxSize().weight(6f),
                     jugadorCasillaEnum = ganadorJuego,
-                    clicable = {}
+                    clicable = { juegoViewModel.reiniciarJuego() }
                 )
             }
 

@@ -50,7 +50,8 @@ fun Ganador(
             )
             Text(
                 textAlign = TextAlign.Start,
-                text = "Ganador Jugador $jugadorCasillaEnum",
+                text = "Ganador $jugadorCasillaEnum",
+                lineHeight = 38.sp,
                 fontSize= 35.sp,
                 modifier = Modifier
                     .constrainAs(textoId) {
