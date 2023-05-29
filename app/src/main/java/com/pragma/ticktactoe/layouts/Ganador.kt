@@ -27,7 +27,7 @@ fun Ganador(
 ) {
     ConstraintLayout(modifier = modifier) {
         val (cardPrincipal, imagen, textoId) = createRefs()
-
+        val tmp =""
         ConstraintLayout(modifier = Modifier
             .background(PurpleWinner, shape = RoundedCornerShape(16.dp))
             .width(344.dp)
