@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -23,7 +24,7 @@ fun prevScreenTictactoe() {
     val estadoTablero = MutableLiveData<MutableList<DetalleCasillaTriqui>>()
     val ganadorJuego = MutableLiveData<JugadorCasillaEnum>()
     val turnoActual = MutableLiveData<EstadoJuegoEnum>()
-    ganadorJuego.value = JugadorCasillaEnum.JUGADOR1
+    ganadorJuego.value = JugadorCasillaEnum.NINGUNO
     TicTacToeScreen(juegoViewModel = object : JuegoViewModel() {
         override fun estadoActualTablero()=estadoTablero
 
@@ -77,7 +78,7 @@ fun TicTacToeScreen(juegoViewModel: JuegoViewModel) {
                 )
             }
 
-            Pie(modifier = Modifier.weight(1f))
+            Pie(modifier = Modifier.weight(1f).fillMaxWidth())
         }
     }
 }
